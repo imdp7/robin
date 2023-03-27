@@ -5,7 +5,6 @@ import { ListItem } from 'react-native-elements'
 
 const styles = {
 	color: 'black',
-  fontSize: 15
 }
 const KeyStats = ({item}) => {
 	return (

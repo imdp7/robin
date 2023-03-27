@@ -1,27 +1,24 @@
-import firebase from 'firebase';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
-
+import {getReactNativePersistence, initializeAuth} from 'firebase/auth/react-native';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAuS1hm0LY0oT8xRydBr97a2FxgesYnNII",
-  authDomain: "robin-413a9.firebaseapp.com",
-  projectId: "robin-413a9",
-  storageBucket: "robin-413a9.appspot.com",
-  messagingSenderId: "487377104972",
-  appId: "1:487377104972:web:b01ca1a493f6a39310c4e9",
-  measurementId: "G-ESV3X2V9CD"
-};
+  apiKey: "AIzaSyBxFfLI6xjAWiw0NyzB9YyE__AMTy6v0Mo",
+  authDomain: "robinhood--97.firebaseapp.com",
+  projectId: "robinhood--97",
+  storageBucket: "robinhood--97.appspot.com",
+  messagingSenderId: "900279756111",
+  appId: "1:900279756111:web:a09c38fce813f16134113a",
+  // measurementId: "G-1FGLL2EFH3"
+  };
 
-const firebaseApp = firebase.initializeApp(firebaseConfig);
+const firebaseApp = firebase.initializeApp(firebaseConfig,{persistence: getReactNativePersistence(AsyncStorage)});
 export const auth = firebase.auth();
-const provider = new firebase.auth.GoogleAuthProvider();
-const db = firebaseApp.firestore();
-
-export const signInWithGoogle = () => {
-  auth.signInWithPopup(provider);
-  
-};
+export const provider = new firebase.auth.GoogleAuthProvider();
+const db = firebaseApp.firestore({ experimentalForceLongPolling: true });
 
 export const generateUserDocument = async (user, additionalData) => {
   if (!user) return;
@@ -29,12 +26,12 @@ export const generateUserDocument = async (user, additionalData) => {
   const snapshot = await userRef.get();
 
   if (!snapshot.exists) {
-    const { email, displayName, photoURL } = user;
+    const { email, FirstName,LastName } = user;
     try {
       await userRef.set({
-        displayName,
+        FirstName,
+        LastName,
         email,
-        photoURL,
         ...additionalData
       });
     } catch (error) {
@@ -56,6 +53,17 @@ const getUserDocument = async uid => {
     console.error("Error fetching user", error);
   }
   
+};
+
+export const sendPasswordResetEmail = async (email) => {
+  try {
+    await auth.sendPasswordResetEmail(email)
+    .then(() => {
+      alert.message("Success")
+    })
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 
