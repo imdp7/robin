@@ -15,7 +15,7 @@ const MyStocks = ({item}) => {
 	const marketValue = (totalValue) + (totalReturn);
 
 	return (
-		<View style={tw`p-2 border border-gray-200 shadow-lg`}>
+		<View style={tw`p-2 border border-gray-200`}>
 		<View style={tw`pr-5 pt-2`}>
 		<Text style={tw`text-black font-semibold text-2xl`}>Holdings</Text>
 		<View style={tw`p-3 flex flex-row justify-between`}>

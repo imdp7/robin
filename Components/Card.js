@@ -22,7 +22,7 @@ const Card = ({active,losers,gainers,trending,heading,recommend,desc}) => {
 		<TouchableOpacity
 		//disabled={!origin}
 		onPress={() => navigation.navigate('Stock',{item})}
-		style={tw`flex-row m-2 pl-2 rounded-xl border border-gray-400 border-opacity-25 shadow-2xl`}>
+		style={tw`flex-row m-2 pl-2 rounded-xl border border-gray-400 border-opacity-25 `}>
 			<View style={tw`flex justify-between`}>
 				<View style={tw`w-40`}>
 				<Text style={tw`mt-2 p-2 text-sm text-black font-semibold`}>{item?.shortName}</Text>

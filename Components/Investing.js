@@ -11,7 +11,7 @@ const Investing = () => {
 		<Text style={tw`font-semibold text-black text-2xl`}>Investing</Text>
 		<TouchableOpacity>
 		<View style={tw`flex flex-row border border-green-700 rounded-2xl border-opacity-50 bg-green-100 p-1`}>
-		<Icon name='gift-sharp' size='small' type='ionicon' color='green' style={tw`py-2 px-1`}/>
+		<Icon name='gift-sharp' type='ionicon' color='green' style={tw`py-2 px-1`}/>
 		<Text style={tw`font-bold text-green-600 text-sm px-1.5 py-1.5 items-baseline`}>
 		Rewards
 		</Text>
@@ -38,7 +38,7 @@ const Investing = () => {
           	uri: 'https://www.freeiconspng.com/uploads/blue-line-png-1.png',
         	}} />
 		<Timeline/>
-		<View style={tw`border-b border-gray-400 p-2 shadow-2xl`}>
+		<View style={tw`border-b border-gray-400 p-2`}>
 		<View style={tw`flex flex-row p-2 justify-between`}>
 		<View>
 			<Text style={tw`text-black font-normal text-base`}>
