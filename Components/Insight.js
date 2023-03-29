@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native'
 import Statistics from './Statistics';
 import Plot from './Plot'
 
-const Insight = ({item,title}) => {
+const Insight = ({symbol,title}) => {
 	const navigation = useNavigation()
 	return (
 		<View style={tw`mt-3 p-2 `}>
@@ -16,8 +16,8 @@ const Insight = ({item,title}) => {
 		<Text style={tw`text-black text-2xl font-semibold`}>{title}</Text>
 		<View style={tw`flex flex-row flex-wrap`}>
 		<TouchableOpacity 
-		onPress={() => navigation.navigate('Cards',{item})}>
-			<Cards heading={'Earnings'} item={item}/>
+		onPress={() => navigation.navigate('Cards',{symbol: item.symbol})}>
+			<Cards heading={'Earnings'} symbol={symbol}/>
 		</TouchableOpacity>
 		
 		</View>

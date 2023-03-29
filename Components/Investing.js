@@ -8,7 +8,7 @@ const Investing = () => {
 	return (
 		<View style={tw`p-2`}>
 			<View style={tw`flex flex-row justify-between m-2`}>
-		<Text style={tw`font-semibold text-black text-2xl`}>Investing</Text>
+		<Text style={tw`font-semibold text-black text-3xl`}>Investing</Text>
 		<TouchableOpacity>
 		<View style={tw`flex flex-row border border-green-700 rounded-2xl border-opacity-50 bg-green-100 p-1`}>
 		<Icon name='gift-sharp' type='ionicon' color='green' style={tw`py-2 px-1`}/>

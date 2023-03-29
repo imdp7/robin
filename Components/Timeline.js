@@ -30,7 +30,7 @@ const data = [
 ]
 const Timeline = () => {
 
-	const [selected, setSelected] = useState();
+	const [selected, setSelected] = useState(data[0]);
 	  
 
 	return (
@@ -41,7 +41,7 @@ const Timeline = () => {
 		keyExtractor={(item) => item.id}
 		renderItem={({item:{frame,id},item}) => (
 			<TouchableOpacity style={tw`flex flex-row justify-between pb-2 pr-3`} onPress={() => {setSelected(item)}}>
-			<View style={tw`p-2 ${selected?.id ===id  && 'bg-green-600 rounded-lg'} `}>
+			<View style={tw`p-2 ${selected?.id === id  && 'bg-green-600 rounded-lg'} `}>
 			<Text style={tw`font-bold text-black ${selected?.id ===id  && 'text-white'}`}>{frame}</Text>
 			</View>
 			</TouchableOpacity>

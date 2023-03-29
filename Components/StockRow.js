@@ -112,7 +112,7 @@ const StockRow = () => {
           initialNumToRender={10}
           renderItem={({ item }) => (
             <TouchableOpacity
-              onPress={() => navigation.navigate("Stock", { item })}
+              onPress={() => navigation.navigate("Stock", { symbol: item?.data?.ticker })}
               style={tw`flex flex-row pl-2 m-1 rounded border border-gray-400 border-opacity-25 text-center`}>
               <View style={tw`flex-1`}>
                 {item?.info?.price?.regularMarketPrice?.fmt ? (
@@ -178,7 +178,7 @@ const StockRow = () => {
           initialNumToRender={10}
           renderItem={({ item }) => (
             <TouchableOpacity
-              onPress={() => navigation.navigate("Stock", { item })}
+              onPress={() => navigation.navigate("Stock", { symbol: item?.name })}
               style={tw`flex flex-row p-2 m-1 rounded border border-gray-400 border-opacity-25 text-center`}>
               <View style={tw`flex-1`}>
                 {item?.info?.price?.regularMarketPrice?.fmt ? (

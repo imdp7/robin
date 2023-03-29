@@ -14,44 +14,49 @@ import TrendingTicker from '../Components/TrendingTicker'
 import { wait } from '../Components/Articles'
 const data = [
     {
-        market: 'USA',
-        name: 'US',
-        id: '1',
+      market: "USA",
+      name: "US",
+      id: "1",
     },
     {
-        market: 'Europe',
-        name: 'EU',
-        id: '2',
+      market: "Canada",
+      name: "CA",
+      id: "2",
     },
     {
-        market: 'Asia',
-        name: 'ASIA',
-        id: '3',
+      market: "Britain",
+      name: "BR",
+      id: "3",
     },
-]
+    {
+      market: "Hong Kong",
+      name: "HK",
+      id: "4",
+    },
+    {
+      market: "India",
+      name: "IN",
+      id: "5",
+    },
+    {
+      market: "France",
+      name: "FR",
+      id: "6",
+    },
+  ];
 const Search = () => {
     const [market, setMarket] = useState(data[0].name)
     const [refreshing, setRefreshing] = useState(false)
 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true)
-        wait(2500).then(() => setRefreshing(false))
+        wait(1500).then(() => setRefreshing(false))
     }, [refreshing])
 
     return (
         <SafeAreaView style={tw`bg-white flex-1`}>
-            <ScrollView
-                refreshControl={
-                    <RefreshControl
-                        refreshing={refreshing}
-                        onRefresh={onRefresh}
-                        tintColor="green"
-                        colors={['red']}
-                    />
-                }
-            >
                 <View style={tw`pt-5`}>
-                    <Text style={tw`text-black text-2xl pl-4 mt-4 pb-5`}>
+                    <Text style={tw`text-black text-3xl pl-4 mt-4 pb-5`}>
                         Market
                     </Text>
                     <FlatList
@@ -68,7 +73,7 @@ const Search = () => {
                                 onPress={() => setMarket(item.name)}
                                 style={[
                                     tw`flex flex-row m-2 rounded border-b border-gray-100 border-opacity-25 items-center`,
-                                    item.name === market && tw`bg-black`,
+                                    item.name === market && tw`bg-green-400`,
                                 ]}
                             >
                                 <View style={tw`flex-1`}>
@@ -82,7 +87,7 @@ const Search = () => {
                                                 style={[
                                                     tw`pl-2 pr-2 pt-1 pb-1 text-base text-center font-bold`,
                                                     item.name === market &&
-                                                        tw`text-white`,
+                                                        tw`text-black`,
                                                 ]}
                                             >
                                                 {item.market}
@@ -94,9 +99,20 @@ const Search = () => {
                         )}
                     />
                 </View>
-
+                <ScrollView
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                        tintColor="green"
+                        colors={['red']}
+                    />
+                }
+            >
+            <View style={tw`pl-2 pr-2`}>
                 <TrendingTicker market={market} />
                 <DailyMovers market={market} />
+                </View>
             </ScrollView>
         </SafeAreaView>
     )

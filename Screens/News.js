@@ -4,10 +4,13 @@ import {
   SafeAreaView,
   FlatList,
   TouchableOpacity,
+  ScrollView,
   Text,
+  RefreshControl,
 } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import Articles from "../Components/Articles";
+import { wait } from '../Components/Articles'
 
 const data = [
   {
@@ -42,12 +45,18 @@ const data = [
   },
 ];
 const News = () => {
-  const [market, setMarket] = useState(data[0].name);
+  const [market, setMarket] = useState(data[0]);
+  const [refreshing, setRefreshing] = useState(false)
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true)
+    wait(1500).then(() => setRefreshing(false))
+}, [refreshing])
 
   return (
     <SafeAreaView style={tw`bg-white flex-1`}>
       <View style={tw`pt-5`}>
-        <Text style={tw`text-black text-2xl pl-4 mt-4 pb-5`}>Top News</Text>
+        <Text style={tw`text-black text-3xl pl-4 mt-4 pb-5`}>Top {market.market} News</Text>
         <FlatList
           keyExtractor={(item) => item.name}
           extraData={market}
@@ -56,10 +65,10 @@ const News = () => {
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => (
             <TouchableOpacity
-              onPress={() => setMarket(item.name)}
+              onPress={() => setMarket(item)}
               style={[
                 tw`flex flex-row m-2 rounded border-b border-gray-100 border-opacity-25 items-center`,
-                item.name === market && tw`bg-black`,
+                item.name === market.name && tw`bg-green-400`,
               ]}>
               <View style={tw`flex-1`}>
                 <View
@@ -68,7 +77,7 @@ const News = () => {
                     <Text
                       style={[
                         tw`pl-2 pr-2 pt-1 pb-1 text-base text-center font-bold`,
-                        item.name === market && tw`text-white`,
+                        item.name === market.name && tw`text-black`,
                       ]}>
                       {item.market}
                     </Text>
@@ -79,7 +88,18 @@ const News = () => {
           )}
         />
       </View>
+      <ScrollView
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                        tintColor="green"
+                        colors={['red']}
+                    />
+                }
+            >
       <Articles limit={"25"} region={market} category={"generalnews"} />
+      </ScrollView>
     </SafeAreaView>
   );
 };

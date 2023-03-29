@@ -19,7 +19,7 @@ export const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
 };
 
-const Articles = ({ heading, category, region, limit }) => {
+const Articles = ({ heading, category, region, limit}) => {
   const navigation = useNavigation();
 
   const [article, setArticle] = useState([]);
