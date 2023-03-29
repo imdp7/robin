@@ -1,5 +1,5 @@
 import React from 'react'
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../Screens/HomeScreen';
 import Search from '../Screens/Search';
 import Profile from '../Screens/Profile'
@@ -8,7 +8,7 @@ import {Icon} from 'react-native-elements'
 
 const BottomNavigation = () => {
 
-	const Tab = createMaterialBottomTabNavigator();
+	const Tab = createBottomTabNavigator();
 
 	return (
 		<Tab.Navigator

@@ -108,7 +108,7 @@ const Articles = ({ heading, category, region, limit}) => {
                   keyExtractor={(item, index) => index.toString()}
                   renderItem={({ item }) => (
                     <TouchableOpacity
-                      onPress={() => navigation.navigate("Stock", { item })}
+                      onPress={() => navigation.navigate("Stock", { symbol: item.symbol })}
                       style={tw`flex-row m-1 rounded border border-gray-400 border-opacity-25`}>
                       <View style={tw`flex flex-col items-center p-1`}>
                         <Text style={tw`text-black text-base text-green-500`}>

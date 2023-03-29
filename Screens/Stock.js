@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useLayoutEffect } from 'react'
 import {
     View,
     SafeAreaView,
@@ -10,7 +10,7 @@ import {
 } from 'react-native'
 import { TRENDING_URL, key, host, KEY_URL, Region } from '../api'
 import axios from 'axios'
-import { useRoute } from '@react-navigation/native'
+import { useRoute, useNavigation } from '@react-navigation/native'
 import tw from 'tailwind-react-native-classnames'
 import Articles from '../Components/Articles'
 import KeyStats from '../Components/KeyStats'
@@ -29,7 +29,8 @@ const wait = (timeout) => {
 
 const Stock = () => {
     const route = useRoute()
-    const { symbol } = route.params
+    const navigation = useNavigation();
+    const { symbol,title } = route.params
     const [data, setData] = useState([])
     const [selectedTab, setSelectedTab] = useState(0)
     const [refreshing, setRefreshing] = useState(false)
@@ -44,6 +45,12 @@ const Stock = () => {
             setRefreshing(false)
         })
     }, [refreshing])
+
+    useLayoutEffect(() => {
+      navigation.setOptions({
+	title: symbol,
+      });
+    },[symbol]);
 
     const BASE_URL = 'https://yh-finance.p.rapidapi.com/stock/v2/get-summary?'
     useEffect(() => {
@@ -72,6 +79,7 @@ const Stock = () => {
         currencySymbol = data?.price?.currencySymbol,
         longName = data?.quoteType?.longName,
         ticker = data.symbol,
+	type = data?.quoteType?.quoteType
     } = data
 
     return (
@@ -87,15 +95,14 @@ const Stock = () => {
                     />
                 }
             >
-                <View style={tw`flex flex-col justify-between pl-4`}>
+                <View style={tw`flex flex-col justify-between ml-2 pl-4`}>
                     <Text style={tw`font-semibold text-black text-base pt-3`}>
                         {name || longName}
                     </Text>
                     <Text style={tw`text-3xl  font-semibold text-black`}>
                         {symbol}
                     </Text>
-                </View>
-                <View style={tw`flex flex-row pl-3 pt-2`}>
+                <View style={tw`flex flex-row pt-1`}>
                     <Text style={tw`text-3xl font-semibold text-black`}>
                         {currencySymbol}
                         {postMarketPrice?.fmt ||
@@ -107,16 +114,22 @@ const Stock = () => {
                             : '-'}
                     </Text>
                 </View>
+		{/* <View style={tw`flex flex-row justify-between ml-2 pl-4`}>
+		    <Text>
+		    {type}
+		    </Text>
+		    </View> */}
+		</View>
                 {regularMarketChangePercent?.fmt && (
-                    <View style={tw`flex flex-row items-center`}>
+                    <View style={tw`flex flex-row items-center pl-4 ml-2 pt-2`}>
                         <Text
-                            style={tw`text-base text-green-700 font-semibold pl-3`}
+                            style={tw`text-base text-green-700 font-semibold`}
                         >
                             {currencySymbol}
                             {regularMarketChange?.fmt}
                         </Text>
                         <Text
-                            style={tw`text-base text-green-700 font-semibold pl-3 pr-3`}
+                            style={tw`text-base text-green-700 font-semibold pl-3 pr-2`}
                         >
                             ({regularMarketChangePercent?.fmt})
                         </Text>
@@ -128,7 +141,7 @@ const Stock = () => {
                 {postMarketChangePercent?.fmt && (
                     <View style={tw`flex flex-row items-center`}>
                         <Text
-                            style={tw`text-base text-green-700 font-semibold pl-3`}
+                            style={tw`text-base text-green-700 font-semibold pl-4 ml-2`}
                         >
                             {currencySymbol}
                             {preMarketChange?.fmt || postMarketChange?.fmt}
@@ -195,4 +208,7 @@ const Stock = () => {
     )
 }
 
+Stock.navigationOptions = ({navigation}) => ({
+	title: navigation.getParam('title')
+})
 export default Stock

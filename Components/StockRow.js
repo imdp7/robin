@@ -13,6 +13,7 @@ import axios from "axios";
 import { db } from "../firebase";
 import Graph from "./Graph";
 import { useNavigation } from "@react-navigation/native";
+import Shimmer from "./Shimmer";
 
 const GRAPH_URL =
   "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=compact&symbol=";
@@ -25,6 +26,7 @@ const testData = [];
 const StockRow = () => {
   const [stocksData, setStocksData] = useState([]);
   const [myStocks, setMyStocks] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [graph, setGraph] = useState([]);
   const navigation = useNavigation();
 
@@ -41,6 +43,14 @@ const StockRow = () => {
   //       });
 
   // },[]);
+
+  useEffect(() => {
+    setLoading(true);
+    const timer = setTimeout(() => {
+      setLoading(false);
+    },1500)
+    return () => clearTimeout(timer);
+  },[])
 
   const getMyStocks = () => {
     db.collection("myStocks").onSnapshot((snapshot) => {
@@ -97,6 +107,8 @@ const StockRow = () => {
 
   return (
     <SafeAreaView>
+    {!loading ? (
+      <>
       <View style={tw`p-2 mt-3`}>
         <View>
           <Text style={tw`text-black font-semibold text-2xl pl-2 pb-2`}>
@@ -112,7 +124,7 @@ const StockRow = () => {
           initialNumToRender={10}
           renderItem={({ item }) => (
             <TouchableOpacity
-              onPress={() => navigation.navigate("Stock", { symbol: item?.data?.ticker })}
+              onPress={() => navigation.navigate("Stock", { symbol: item?.data?.ticker, title: item.data.ticker })}
               style={tw`flex flex-row pl-2 m-1 rounded border border-gray-400 border-opacity-25 text-center`}>
               <View style={tw`flex-1`}>
                 {item?.info?.price?.regularMarketPrice?.fmt ? (
@@ -230,6 +242,8 @@ const StockRow = () => {
           )}
         />
       </View>
+      </>
+      ) :null}
     </SafeAreaView>
   );
 };

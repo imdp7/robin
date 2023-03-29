@@ -7,7 +7,6 @@ const styles = {
 	color: 'black',
 }
 const KeyStats = ({item}) => {
-  console.log(item)
 	return (
 		<View style={tw`flex flex-col p-2 mt-3`}>
 		<View>
