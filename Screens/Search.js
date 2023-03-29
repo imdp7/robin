@@ -14,36 +14,36 @@ import TrendingTicker from '../Components/TrendingTicker'
 import { wait } from '../Components/Articles'
 const data = [
     {
-      market: "USA",
-      name: "US",
-      id: "1",
+        market: 'USA',
+        name: 'US',
+        id: '1',
     },
     {
-      market: "Canada",
-      name: "CA",
-      id: "2",
+        market: 'Canada',
+        name: 'CA',
+        id: '2',
     },
     {
-      market: "Britain",
-      name: "BR",
-      id: "3",
+        market: 'Britain',
+        name: 'BR',
+        id: '3',
     },
     {
-      market: "Hong Kong",
-      name: "HK",
-      id: "4",
+        market: 'Hong Kong',
+        name: 'HK',
+        id: '4',
     },
     {
-      market: "India",
-      name: "IN",
-      id: "5",
+        market: 'India',
+        name: 'IN',
+        id: '5',
     },
     {
-      market: "France",
-      name: "FR",
-      id: "6",
+        market: 'France',
+        name: 'FR',
+        id: '6',
     },
-  ];
+]
 const Search = () => {
     const [market, setMarket] = useState(data[0].name)
     const [refreshing, setRefreshing] = useState(false)
@@ -55,51 +55,50 @@ const Search = () => {
 
     return (
         <SafeAreaView style={tw`bg-white flex-1`}>
-                <View style={tw`pt-5`}>
-                    <Text style={tw`text-black text-3xl pl-4 mt-4 pb-5`}>
-                        Market
-                    </Text>
-                    <FlatList
-                        keyExtractor={(item) => item.id}
-                        extraData={market}
-                        data={data}
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        ItemSeparatorComponent={() => (
-                            <View style={[tw`bg-gray-500`]} />
-                        )}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity
-                                onPress={() => setMarket(item.name)}
-                                style={[
-                                    tw`flex flex-row m-2 rounded border-b border-gray-100 border-opacity-25 items-center`,
-                                    item.name === market && tw`bg-green-400`,
-                                ]}
-                            >
-                                <View style={tw`flex-1`}>
+            <View style={tw`pt-5`}>
+                <Text style={tw`text-black text-3xl pl-4 mt-4 pb-5`}>
+                    Market
+                </Text>
+                <FlatList
+                    keyExtractor={(item) => item.id}
+                    extraData={market}
+                    data={data}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    ItemSeparatorComponent={() => (
+                        <View style={[tw`bg-gray-500`]} />
+                    )}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity
+                            onPress={() => setMarket(item.name)}
+                            style={[
+                                tw`flex flex-row m-2 rounded border-b border-gray-100 border-opacity-25 items-center`,
+                            ]}
+                        >
+                            <View style={tw`flex-1`}>
+                                <View
+                                    style={tw`flex flex-row justify-between text-center items-center`}
+                                >
                                     <View
-                                        style={tw`flex flex-row justify-between text-center items-center`}
+                                        style={tw`flex flex-col text-left w-24`}
                                     >
-                                        <View
-                                            style={tw`flex flex-col text-left w-24`}
+                                        <Text
+                                            style={[
+                                                tw`pl-2 pr-2 pt-1 pb-1 text-base text-center font-bold`,
+                                                item.name === market &&
+                                                    tw`text-purple-600 border-solid border-purple-600 rounded-2xl`,
+                                            ]}
                                         >
-                                            <Text
-                                                style={[
-                                                    tw`pl-2 pr-2 pt-1 pb-1 text-base text-center font-bold`,
-                                                    item.name === market &&
-                                                        tw`text-black`,
-                                                ]}
-                                            >
-                                                {item.market}
-                                            </Text>
-                                        </View>
+                                            {item.market}
+                                        </Text>
                                     </View>
                                 </View>
-                            </TouchableOpacity>
-                        )}
-                    />
-                </View>
-                <ScrollView
+                            </View>
+                        </TouchableOpacity>
+                    )}
+                />
+            </View>
+            <ScrollView
                 refreshControl={
                     <RefreshControl
                         refreshing={refreshing}
@@ -109,9 +108,9 @@ const Search = () => {
                     />
                 }
             >
-            <View style={tw`pl-2 pr-2`}>
-                <TrendingTicker market={market} />
-                <DailyMovers market={market} />
+                <View style={tw`pl-2 pr-2`}>
+                    <TrendingTicker market={market} />
+                    <DailyMovers market={market} />
                 </View>
             </ScrollView>
         </SafeAreaView>

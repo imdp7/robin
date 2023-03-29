@@ -29,8 +29,8 @@ const wait = (timeout) => {
 
 const Stock = () => {
     const route = useRoute()
-    const navigation = useNavigation();
-    const { symbol,title } = route.params
+    const navigation = useNavigation()
+    const { symbol } = route.params
     const [data, setData] = useState([])
     const [selectedTab, setSelectedTab] = useState(0)
     const [refreshing, setRefreshing] = useState(false)
@@ -47,10 +47,10 @@ const Stock = () => {
     }, [refreshing])
 
     useLayoutEffect(() => {
-      navigation.setOptions({
-	title: symbol,
-      });
-    },[symbol]);
+        navigation.setOptions({
+            title: symbol,
+        })
+    }, [symbol])
 
     const BASE_URL = 'https://yh-finance.p.rapidapi.com/stock/v2/get-summary?'
     useEffect(() => {
@@ -79,7 +79,7 @@ const Stock = () => {
         currencySymbol = data?.price?.currencySymbol,
         longName = data?.quoteType?.longName,
         ticker = data.symbol,
-	type = data?.quoteType?.quoteType
+        type = data?.quoteType?.quoteType,
     } = data
 
     return (
@@ -95,31 +95,34 @@ const Stock = () => {
                     />
                 }
             >
-                <View style={tw`flex flex-col justify-between ml-2 pl-4`}>
-                    <Text style={tw`font-semibold text-black text-base pt-3`}>
-                        {name || longName}
-                    </Text>
-                    <Text style={tw`text-3xl  font-semibold text-black`}>
-                        {symbol}
-                    </Text>
-                <View style={tw`flex flex-row pt-1`}>
-                    <Text style={tw`text-3xl font-semibold text-black`}>
-                        {currencySymbol}
-                        {postMarketPrice?.fmt ||
-                        regularMarketPrice?.fmt ||
-                        preMarketPrice?.fmt
-                            ? preMarketPrice?.fmt ||
-                              postMarketPrice?.fmt ||
-                              regularMarketPrice?.fmt
-                            : '-'}
-                    </Text>
+                <View style={tw`flex flex-row justify-between`}>
+                    <View style={tw`flex flex-col justify-between ml-2 pl-4`}>
+                        <Text
+                            style={tw`font-semibold text-black text-base pt-3`}
+                        >
+                            {name || longName}
+                        </Text>
+
+                        <Text style={tw`text-3xl font-semibold text-black`}>
+                            {symbol}
+                        </Text>
+                        <View style={tw`flex flex-row pt-1`}>
+                            <Text style={tw`text-3xl font-semibold text-black`}>
+                                {currencySymbol}
+                                {postMarketPrice?.fmt ||
+                                regularMarketPrice?.fmt ||
+                                preMarketPrice?.fmt
+                                    ? preMarketPrice?.fmt ||
+                                      postMarketPrice?.fmt ||
+                                      regularMarketPrice?.fmt
+                                    : '-'}
+                            </Text>
+                        </View>
+                    </View>
+                    <View style={tw`flex pt-4 pr-4 mr-2`}>
+                        <Text>{type}</Text>
+                    </View>
                 </View>
-		{/* <View style={tw`flex flex-row justify-between ml-2 pl-4`}>
-		    <Text>
-		    {type}
-		    </Text>
-		    </View> */}
-		</View>
                 {regularMarketChangePercent?.fmt && (
                     <View style={tw`flex flex-row items-center pl-4 ml-2 pt-2`}>
                         <Text
@@ -179,10 +182,10 @@ const Stock = () => {
                     </View>
                 ) : null}
                 <MaterialTabs
-                    items={['Summary', 'Details']}
+                    items={['Summary', 'Analysis', 'Financials']}
                     selectedIndex={selectedTab}
                     onChange={setSelectedTab}
-                    barColor="rgb(6,120,86)"
+                    barColor="rgb(127,31,255)"
                     indicatorColor="#f0f0f0f0"
                     activeTextColor="white"
                     indicatorHeight="4"
@@ -192,7 +195,6 @@ const Stock = () => {
                 {selectedTab == 0 ? (
                     <View>
                         <KeyStats item={data} />
-                        <Insight title={'Insights'} symbol={symbol} />
                         <Articles
                             category={symbol}
                             heading={'News'}
@@ -202,13 +204,17 @@ const Stock = () => {
                         <Recommendation symbol={symbol} />
                     </View>
                 ) : null}
-                {selectedTab == 1 ? <View></View> : null}
+                {selectedTab == 1 ? (
+                    <View>
+                        <Insight title={'Insights'} symbol={symbol} />
+                    </View>
+                ) : null}
             </ScrollView>
         </SafeAreaView>
     )
 }
 
-Stock.navigationOptions = ({navigation}) => ({
-	title: navigation.getParam('title')
+Stock.navigationOptions = ({ navigation }) => ({
+    title: navigation.getParam('title'),
 })
 export default Stock

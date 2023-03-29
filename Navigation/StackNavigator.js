@@ -1,4 +1,4 @@
-import React,{useState, useLayoutEffect} from 'react'
+import React, { useState, useLayoutEffect } from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import { View, TouchableOpacity, Share } from 'react-native'
 import tw from 'tailwind-react-native-classnames'
@@ -10,7 +10,6 @@ import { useNavigation } from '@react-navigation/native'
 import Search from '../Screens/Search'
 
 const StackNavigator = () => {
-
     const navigation = useNavigation()
     const Stack = createStackNavigator()
     const onShare = async () => {
@@ -72,11 +71,14 @@ const StackNavigator = () => {
             <Stack.Screen
                 name="Cards"
                 component={Cards}
-                style={tw`h-1/2`}
+                style={{ width: '10%' }}
                 options={{
-                    headerShown: false,
-                    presentation: 'modal',
                     headerMode: 'screen',
+                    headerShown: false,
+                    cardShadowEnabled: true,
+                    cardOverlayEnabled: true,
+                    animationEnabled: true,
+                    presentation: 'modal',
                 }}
             />
         </Stack.Navigator>

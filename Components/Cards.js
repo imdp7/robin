@@ -8,13 +8,9 @@ const Cards = ({ heading, symbol }) => {
     return (
         <SafeAreaView>
             <View>
-                <Card
-                    containerStyle={{
-                        backgroundColor: 'black',
-                        flexWrap: 'wrap',
-                    }}
-                >
+                <Card>
                     <Card.Title>{heading}</Card.Title>
+                    <Button>{symbol}</Button>
                     <Card.Divider />
                 </Card>
             </View>
