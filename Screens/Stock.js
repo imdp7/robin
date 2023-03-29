@@ -22,6 +22,7 @@ import Timeline from '../Components/Timeline'
 import MyStocks from '../Components/MyStocks'
 import Trade from '../Components/Trade'
 import Plot from '../Components/Plot'
+import CompanyProfile from '../Components/CompanyProfile'
 
 const wait = (timeout) => {
     return new Promise((resolve) => setTimeout(resolve, timeout))
@@ -202,6 +203,7 @@ const Stock = () => {
                             limit={'5'}
                         />
                         <Recommendation symbol={symbol} />
+                        <CompanyProfile data={data} />
                     </View>
                 ) : null}
                 {selectedTab == 1 ? (

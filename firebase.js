@@ -1,70 +1,72 @@
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth'
+import 'firebase/compat/firestore'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import {getReactNativePersistence, initializeAuth} from 'firebase/auth/react-native';
+import {
+    getReactNativePersistence,
+    initializeAuth,
+} from 'firebase/auth/react-native'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBxFfLI6xjAWiw0NyzB9YyE__AMTy6v0Mo",
-  authDomain: "robinhood--97.firebaseapp.com",
-  projectId: "robinhood--97",
-  storageBucket: "robinhood--97.appspot.com",
-  messagingSenderId: "900279756111",
-  appId: "1:900279756111:web:a09c38fce813f16134113a",
-  // measurementId: "G-1FGLL2EFH3"
-  };
+    apiKey: 'AIzaSyBxFfLI6xjAWiw0NyzB9YyE__AMTy6v0Mo',
+    authDomain: 'robinhood--97.firebaseapp.com',
+    projectId: 'robinhood--97',
+    storageBucket: 'robinhood--97.appspot.com',
+    messagingSenderId: '900279756111',
+    appId: '1:900279756111:web:a09c38fce813f16134113a',
+    // measurementId: 'G-1FGLL2EFH3',
+}
 
-const firebaseApp = firebase.initializeApp(firebaseConfig,{persistence: getReactNativePersistence(AsyncStorage)});
-export const auth = firebase.auth();
-export const provider = new firebase.auth.GoogleAuthProvider();
-const db = firebaseApp.firestore({ experimentalForceLongPolling: true });
+const firebaseApp = firebase.initializeApp(firebaseConfig, {
+    persistence: getReactNativePersistence(AsyncStorage),
+})
+export const auth = firebase.auth()
+export const provider = new firebase.auth.GoogleAuthProvider()
+const db = firebaseApp.firestore({ experimentalForceLongPolling: true })
 
 export const generateUserDocument = async (user, additionalData) => {
-  if (!user) return;
-  const userRef = db.doc(`users/${user.uid}`);
-  const snapshot = await userRef.get();
+    if (!user) return
+    const userRef = db.doc(`users/${user.uid}`)
+    const snapshot = await userRef.get()
 
-  if (!snapshot.exists) {
-    const { email, FirstName,LastName } = user;
-    try {
-      await userRef.set({
-        FirstName,
-        LastName,
-        email,
-        ...additionalData
-      });
-    } catch (error) {
-      console.error("Error creating user document", error);
+    if (!snapshot.exists) {
+        const { email, FirstName, LastName } = user
+        try {
+            await userRef.set({
+                FirstName,
+                LastName,
+                email,
+                ...additionalData,
+            })
+        } catch (error) {
+            console.error('Error creating user document', error)
+        }
     }
-  }
-  return getUserDocument(user.uid);
-};
+    return getUserDocument(user.uid)
+}
 
-const getUserDocument = async uid => {
-  if (!uid) return null;
-  try {
-    const userDocument = await db.doc(`users/${uid}`).get();
-    return {
-      uid,
-      ...userDocument.data()
-    };
-  } catch (error) {
-    console.error("Error fetching user", error);
-  }
-  
-};
+const getUserDocument = async (uid) => {
+    if (!uid) return null
+    try {
+        const userDocument = await db.doc(`users/${uid}`).get()
+        return {
+            uid,
+            ...userDocument.data(),
+        }
+    } catch (error) {
+        console.error('Error fetching user', error)
+    }
+}
 
 export const sendPasswordResetEmail = async (email) => {
-  try {
-    await auth.sendPasswordResetEmail(email)
-    .then(() => {
-      alert.message("Success")
-    })
-  } catch (err) {
-    console.error(err);
-  }
-};
+    try {
+        await auth.sendPasswordResetEmail(email).then(() => {
+            alert.message('Success')
+        })
+    } catch (err) {
+        console.error(err)
+    }
+}
 
-
-export { db };
+export { db }
