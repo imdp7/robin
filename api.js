@@ -1,5 +1,5 @@
 //export const key = process.env.REACT_APP_API_KEY;
-export const key = '2f01d044a8msh33230d2d224f95ep19a02djsnfb2d04943c44'
+export const key = '2faebb8aaemsh1895bffa2d9ccb2p18752ejsnceb474c3f5fb'
 export const host = '&x-rapidapi-host=yh-finance.p.rapidapi.com'
 export const KEY_URL = `&rapidapi-key=`
 export const Region = `region=`
