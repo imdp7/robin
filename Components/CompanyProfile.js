@@ -1,8 +1,5 @@
 import { View, Text, Linking } from 'react-native'
 import React from 'react'
-import { TRENDING_URL, key, host, KEY_URL, Region } from '../api'
-import axios from 'axios'
-import { useRoute, useNavigation } from '@react-navigation/native'
 import tw from 'tailwind-react-native-classnames'
 
 function separateComma(val) {
@@ -13,10 +10,10 @@ function separateComma(val) {
         val = -val
     }
     // trim the number decimal point if it exists
-    let num = val.toString().includes('.')
-        ? val.toString().split('.')[0]
-        : val.toString()
-    let len = num.toString().length
+    let num = val?.toString().includes('.')
+        ? val?.toString().split('.')[0]
+        : val?.toString()
+    let len = num?.toString().length
     let result = ''
     let count = 1
 
@@ -29,8 +26,8 @@ function separateComma(val) {
     }
 
     // add number after decimal point
-    if (val.toString().includes('.')) {
-        result = result + '.' + val.toString().split('.')[1]
+    if (val?.toString().includes('.')) {
+        result = result + '.' + val?.toString().split('.')[1]
     }
     // return result with - sign if negative
     return sign < 0 ? '-' + result : result
@@ -52,45 +49,74 @@ export default function CompanyProfile(props) {
     } = props.data
     return (
         <View>
+        {summary ? (
+            <View style={tw`flex`}>
             <Text style={tw`text-black font-semibold text-2xl mt-4 pl-2 pb-3`}>
                 Company Profile
             </Text>
-            <View style={tw`flex`}>
-                <Text style={tw`text-black font-semibold text-xl pl-2 pb-3`}>
+        {longName ? (
+            <View>
+                <Text style={tw`text-black font-semibold text-lg pl-2 pb-3`}>
                     {longName}
                 </Text>
+                </View>
+        ):null}
+        {address1 ? (
+            <View>
                 <Text style={tw`text-black font-normal text-base pl-2`}>
                     {address1}
                 </Text>
-                {address2 && (
+                </View>
+                ):null}
+                {address2 ? (
+                    <View>
                     <Text style={tw`text-black font-normal text-base pl-2`}>
                         {address2}
                     </Text>
-                )}
+                    </View>
+                ): null}
+                {city && country ? (
+                    <View>
                 <Text style={tw`text-black font-normal text-base pl-2`}>
-                    {city}
-                    {', '}
-                    {country}
+                    {city}, {country}
                 </Text>
+                </View>
+                ):null}
+                {phone ? (
                 <Text style={tw`text-black font-normal text-base pl-2`}>
                     {phone}
                 </Text>
+                ):null}
+                {website ? (
                 <Text style={tw`text-black font-normal text-base pl-2`}>
                     {website}
                 </Text>
+                ):null}
+                {sector ? (
                 <Text style={tw`text-black font-normal text-base pl-2`}>
-                    Sector(s): {sector}
+                    Sector(s): {' '}
+                    <Text style={tw`font-bold`}>{sector}</Text>
                 </Text>
+                ):null}
+                {industry ? (
                 <Text style={tw`text-black font-normal text-base pl-2`}>
-                    Industry: {industry}
+                    Industry: {' '}
+                    <Text style={tw`font-bold`}>{industry}</Text>
                 </Text>
+                ):null}
+                {employees ? (
                 <Text style={tw`text-black font-normal text-base pl-2 pb-3`}>
-                    Full time employee: {separateComma(employees)}
+                    Full time employee: {' '}
+                    <Text style={tw`font-bold`}>{separateComma(employees)}</Text>
                 </Text>
+                ):null}
+                {summary ? (
                 <Text style={tw`text-black font-normal text-base pl-2 pb-3`}>
                     {summary}
                 </Text>
+                ):null}
             </View>
+            ):null}
         </View>
     )
 }

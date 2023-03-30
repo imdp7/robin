@@ -23,6 +23,7 @@ import MyStocks from '../Components/MyStocks'
 import Trade from '../Components/Trade'
 import Plot from '../Components/Plot'
 import CompanyProfile from '../Components/CompanyProfile'
+import PageViews from '../Components/PageViews'
 
 const wait = (timeout) => {
     return new Promise((resolve) => setTimeout(resolve, timeout))
@@ -64,7 +65,7 @@ const Stock = () => {
         }
 
         getSummary()
-    }, [symbol])
+    }, [symbol,data])
 
     const {
         name = data?.quoteType?.longName,
@@ -196,6 +197,7 @@ const Stock = () => {
                 {selectedTab == 0 ? (
                     <View>
                         <KeyStats item={data} />
+			<PageViews data={data} />
                         <Articles
                             category={symbol}
                             heading={'News'}
