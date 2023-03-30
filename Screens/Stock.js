@@ -7,6 +7,8 @@ import {
     Image,
     RefreshControl,
     LogBox,
+    TouchableOpacity,
+    StyleSheet,
 } from 'react-native'
 import { TRENDING_URL, key, host, KEY_URL, Region } from '../api'
 import axios from 'axios'
@@ -27,6 +29,10 @@ import PageViews from '../Components/PageViews'
 
 const wait = (timeout) => {
     return new Promise((resolve) => setTimeout(resolve, timeout))
+}
+
+const BottomBar = ({ children }) => {
+    return <View style={styles.bottomBar}>{children}</View>
 }
 
 const Stock = () => {
@@ -65,7 +71,7 @@ const Stock = () => {
         }
 
         getSummary()
-    }, [symbol,data])
+    }, [symbol, data])
 
     const {
         name = data?.quoteType?.longName,
@@ -82,6 +88,7 @@ const Stock = () => {
         longName = data?.quoteType?.longName,
         ticker = data.symbol,
         type = data?.quoteType?.quoteType,
+        volume = data?.price?.regularMarketVolume?.fmt,
     } = data
 
     return (
@@ -197,7 +204,7 @@ const Stock = () => {
                 {selectedTab == 0 ? (
                     <View>
                         <KeyStats item={data} />
-			<PageViews data={data} />
+                        <PageViews data={data} />
                         <Articles
                             category={symbol}
                             heading={'News'}
@@ -214,9 +221,31 @@ const Stock = () => {
                     </View>
                 ) : null}
             </ScrollView>
+            <BottomBar>
+                <Trade data={data} ticker={ticker} />
+            </BottomBar>
         </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+    bottomBar: {
+        position: 'absolute',
+        bottom: 0,
+        width: '100%',
+        backgroundColor: '#fff',
+        height: 80,
+        paddingHorizontal: 20,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+})
 
 Stock.navigationOptions = ({ navigation }) => ({
     title: navigation.getParam('title'),

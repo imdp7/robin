@@ -49,74 +49,98 @@ export default function CompanyProfile(props) {
     } = props.data
     return (
         <View>
-        {summary ? (
-            <View style={tw`flex`}>
-            <Text style={tw`text-black font-semibold text-2xl mt-4 pl-2 pb-3`}>
-                Company Profile
-            </Text>
-        {longName ? (
-            <View>
-                <Text style={tw`text-black font-semibold text-lg pl-2 pb-3`}>
-                    {longName}
-                </Text>
-                </View>
-        ):null}
-        {address1 ? (
-            <View>
-                <Text style={tw`text-black font-normal text-base pl-2`}>
-                    {address1}
-                </Text>
-                </View>
-                ):null}
-                {address2 ? (
-                    <View>
-                    <Text style={tw`text-black font-normal text-base pl-2 pr-2`}>
-                        {address2}
+            {summary ? (
+                <View style={tw`flex`}>
+                    <Text
+                        style={tw`text-black font-bold text-2xl mt-4 pl-3 pb-2`}
+                    >
+                        Company Profile
                     </Text>
-                    </View>
-                ): null}
-                {city && country ? (
-                    <View>
-                <Text style={tw`text-black font-normal text-base pl-2 pr-2`}>
-                    {city}, {country}
-                </Text>
+                    {longName ? (
+                        <View>
+                            <Text
+                                style={tw`text-black font-semibold text-xl pl-3 pb-3 pb-1`}
+                            >
+                                {longName}
+                            </Text>
+                        </View>
+                    ) : null}
+                    {address1 ? (
+                        <View>
+                            <Text
+                                style={tw`text-black font-normal text-base pl-3 pb-1`}
+                            >
+                                {address1}
+                            </Text>
+                        </View>
+                    ) : null}
+                    {address2 ? (
+                        <View>
+                            <Text
+                                style={tw`text-black font-normal text-base pl-3 pr-2 pb-1`}
+                            >
+                                {address2}
+                            </Text>
+                        </View>
+                    ) : null}
+                    {city && country ? (
+                        <View>
+                            <Text
+                                style={tw`text-black font-normal text-base pl-3 pr-2 pb-1`}
+                            >
+                                {city}, {country}
+                            </Text>
+                        </View>
+                    ) : null}
+                    {phone ? (
+                        <Text
+                            style={tw`text-black font-normal text-base pl-3 pr-2 pb-1`}
+                        >
+                            {phone}
+                        </Text>
+                    ) : null}
+                    {website ? (
+                        <Text
+                            style={tw`text-black font-normal text-base pl-3 pr-2 pb-1`}
+                        >
+                            {website}
+                        </Text>
+                    ) : null}
+                    {sector ? (
+                        <Text
+                            style={tw`text-black font-normal text-base pl-3 pr-2 pb-1`}
+                        >
+                            Sector(s):{' '}
+                            <Text style={tw`font-bold`}>{sector}</Text>
+                        </Text>
+                    ) : null}
+                    {industry ? (
+                        <Text
+                            style={tw`text-black font-normal text-base pl-3 pr-2 pb-1`}
+                        >
+                            Industry:{' '}
+                            <Text style={tw`font-bold`}>{industry}</Text>
+                        </Text>
+                    ) : null}
+                    {employees ? (
+                        <Text
+                            style={tw`text-black font-normal text-base pl-3 pb-3 pr-2`}
+                        >
+                            Full time employee:{' '}
+                            <Text style={tw`font-bold`}>
+                                {separateComma(employees)}
+                            </Text>
+                        </Text>
+                    ) : null}
+                    {summary ? (
+                        <Text
+                            style={tw`text-black font-normal text-base pl-3 pb-3 pr-2`}
+                        >
+                            {summary}
+                        </Text>
+                    ) : null}
                 </View>
-                ):null}
-                {phone ? (
-                <Text style={tw`text-black font-normal text-base pl-2 pr-2`}>
-                    {phone}
-                </Text>
-                ):null}
-                {website ? (
-                <Text style={tw`text-black font-normal text-base pl-2 pr-2`}>
-                    {website}
-                </Text>
-                ):null}
-                {sector ? (
-                <Text style={tw`text-black font-normal text-base pl-2 pr-2`}>
-                    Sector(s): {' '}
-                    <Text style={tw`font-bold`}>{sector}</Text>
-                </Text>
-                ):null}
-                {industry ? (
-                <Text style={tw`text-black font-normal text-base pl-2 pr-2`}>
-                    Industry: {' '}
-                    <Text style={tw`font-bold`}>{industry}</Text>
-                </Text>
-                ):null}
-                {employees ? (
-                <Text style={tw`text-black font-normal text-base pl-2 pb-3 pr-2`}>
-                    Full time employee: {' '}
-                    <Text style={tw`font-bold`}>{separateComma(employees)}</Text>
-                </Text>
-                ):null}
-                {summary ? (
-                <Text style={tw`text-black font-normal text-base pl-2 pb-3 pr-2`}>
-                    {summary}
-                </Text>
-                ):null}
-            </View>
-            ):null}
+            ) : null}
         </View>
     )
 }

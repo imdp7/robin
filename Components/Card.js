@@ -16,7 +16,7 @@ const Card = ({
     return (
         <View>
             <View style={tw`pt-5`}>
-                <Text style={tw`text-black font-semibold text-2xl pl-2`}>
+                <Text style={tw`text-black font-bold text-2xl pl-2`}>
                     {active?.title ||
                         losers?.title ||
                         gainers?.title ||

@@ -12,7 +12,7 @@ const Insight = ({ symbol, title }) => {
     const navigation = useNavigation()
     return (
         <View style={tw`mt-3 p-2`}>
-            <Text style={tw`text-black text-2xl font-semibold`}>{title}</Text>
+            <Text style={tw`text-black text-2xl font-bold`}>{title}</Text>
             <View style={tw`flex flex-row flex-wrap `}>
                 <TouchableOpacity
                     onPress={() =>

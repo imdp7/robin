@@ -7,18 +7,18 @@ const ItemState = ({ trend, title }) => {
     if (trend === 'UP') {
         return (
             <View style={tw`flex flex-col justify-center text-center p-2 m-2`}>
-	    <Text style={tw`text-lg`}>{title}</Text>
+                <Text style={tw`text-lg`}>{title}</Text>
                 <Text style={tw`text-lg text-green-600 m-2`}>
-                    UP <Icon name="arrow-up-sharp" type='ionicon' />
+                    UP <Icon name="arrow-up-sharp" type="ionicon" />
                 </Text>
             </View>
         )
     } else if (trend === 'DOWN') {
         return (
-		<View style={tw`flex flex-col justify-center text-center p-2 m-2`}>
-		<Text style={tw`text-lg`}>{title}</Text>
+            <View style={tw`flex flex-col justify-center text-center p-2 m-2`}>
+                <Text style={tw`text-lg`}>{title}</Text>
                 <Text style={tw`text-lg text-red-600 m-2`}>
-                    DOWN <Icon  name="arrow-down-sharp" type='ionicon' />
+                    DOWN <Icon name="arrow-down-sharp" type="ionicon" />
                 </Text>
             </View>
         )
@@ -32,13 +32,13 @@ export default function PageViews({ data }) {
     } = data
     return (
         <View style={tw`flex`}>
-            <Text style={tw`text-black font-semibold text-2xl mt-4 pl-2 pb-3`}>
+            <Text style={tw`text-black font-bold text-2xl mt-4 pl-2`}>
                 Trends
             </Text>
             <View style={tw`flex flex-row justify-around pl-2 m-2`}>
                 <ItemState trend={shortTerm} title={'Short Term'} />
                 <ItemState trend={midTerm} title={'Mid Term'} />
-                <ItemState trend={longTerm} title={'Long Term'}/>
+                <ItemState trend={longTerm} title={'Long Term'} />
             </View>
         </View>
     )

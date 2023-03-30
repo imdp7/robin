@@ -46,9 +46,7 @@ const Articles = ({ heading, category, region, limit }) => {
         <SafeAreaView style={tw`bg-white flex-1`}>
             <View>
                 {heading && (
-                    <Text
-                        style={tw`text-black font-semibold text-2xl mt-4 pl-2 pb-3`}
-                    >
+                    <Text style={tw`text-black font-bold text-2xl mt-4 pl-2`}>
                         {heading}
                     </Text>
                 )}
