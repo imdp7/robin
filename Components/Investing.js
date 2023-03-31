@@ -34,7 +34,7 @@ const Investing = () => {
                 <Text style={tw`font-bold text-black text-3xl`}>
                     Investing
                 </Text>
-                <TouchableOpacity>
+                {/* <TouchableOpacity>
                     <View
                         style={tw`flex flex-row border border-green-700 rounded-2xl border-opacity-50 bg-green-100 p-1`}
                     >
@@ -50,7 +50,7 @@ const Investing = () => {
                             Rewards
                         </Text>
                     </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
             <Text style={tw`text-3xl  font-semibold text-black pt-3 pl-2`}>
                 {balance(account?.balance)}

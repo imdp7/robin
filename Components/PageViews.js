@@ -32,6 +32,8 @@ export default function PageViews({ data }) {
     } = data
     return (
         <View style={tw`flex`}>
+        {shortTerm || midTerm || longTerm ? (
+            <>
             <Text style={tw`text-black font-bold text-2xl mt-4 pl-2`}>
                 Trends
             </Text>
@@ -40,6 +42,8 @@ export default function PageViews({ data }) {
                 <ItemState trend={midTerm} title={'Mid Term'} />
                 <ItemState trend={longTerm} title={'Long Term'} />
             </View>
+            </>
+            ): null}
         </View>
     )
 }

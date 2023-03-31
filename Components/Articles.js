@@ -14,7 +14,6 @@ import { NEWS_URL, news_host, news_key, KEY_URL, Region } from '../api'
 import { useNavigation } from '@react-navigation/native'
 import tw from 'tailwind-react-native-classnames'
 import axios from 'axios'
-import { ScrollView } from 'react-native-gesture-handler'
 import ShipperArticles from './ShimmerArticles';
 export const wait = (timeout) => {
     return new Promise((resolve) => setTimeout(resolve, timeout))
