@@ -15,12 +15,14 @@ import { useNavigation } from '@react-navigation/native'
 import tw from 'tailwind-react-native-classnames'
 import axios from 'axios'
 import { ScrollView } from 'react-native-gesture-handler'
+import ShipperArticles from './ShimmerArticles';
 export const wait = (timeout) => {
     return new Promise((resolve) => setTimeout(resolve, timeout))
 }
 
 const Articles = ({ heading, category, region, limit }) => {
     const navigation = useNavigation()
+    const[onLoad, setOnLoad] = useState(true);
 
     const [article, setArticle] = useState([])
     const [refreshing, setRefreshing] = useState(false)
@@ -29,6 +31,12 @@ const Articles = ({ heading, category, region, limit }) => {
         setRefreshing(true)
         wait(2500).then(() => setRefreshing(false))
     }, [])
+
+    useEffect(() => {
+        setInterval(() => {
+          setOnLoad(false);
+        }, 5000);
+      },[]);
 
     useEffect(() => {
         const getArticle = async () => {
@@ -51,7 +59,10 @@ const Articles = ({ heading, category, region, limit }) => {
                     </Text>
                 )}
             </View>
-
+            {onLoad ? 
+    <ShipperArticles count={article?.length} />
+    : (
+        <>
             <FlatList
                 keyExtractor={(item, index) => index.toString()}
                 key={article.id}
@@ -144,6 +155,8 @@ const Articles = ({ heading, category, region, limit }) => {
                     </TouchableOpacity>
                 )}
             />
+            </>
+    )}
         </SafeAreaView>
     )
 }

@@ -48,7 +48,7 @@ export default function CompanyProfile(props) {
         summary = props.data?.summaryProfile?.longBusinessSummary,
     } = props.data
     return (
-        <View>
+        <View style={tw`mb-12`}>
             {summary ? (
                 <View style={tw`flex`}>
                     <Text

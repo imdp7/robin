@@ -20,7 +20,6 @@ const Investing = () => {
         data.docs.forEach((item) => {
             setAccount(item.data())
         })
-        console.log(account)
     }
 
     const balance = (money) =>
@@ -32,7 +31,7 @@ const Investing = () => {
     return (
         <View style={tw`p-2`}>
             <View style={tw`flex flex-row justify-between m-2`}>
-                <Text style={tw`font-semibold text-black text-3xl`}>
+                <Text style={tw`font-bold text-black text-3xl`}>
                     Investing
                 </Text>
                 <TouchableOpacity>

@@ -14,6 +14,7 @@ import { db } from '../firebase'
 import Graph from './Graph'
 import { useNavigation } from '@react-navigation/native'
 import Shimmer from './Shimmer'
+import ShipperArticles from './ShimmerArticles'
 
 const GRAPH_URL =
     'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=compact&symbol='
@@ -48,7 +49,7 @@ const StockRow = () => {
         setLoading(true)
         const timer = setTimeout(() => {
             setLoading(false)
-        }, 1500)
+        }, 3500)
         return () => clearTimeout(timer)
     }, [])
 
@@ -114,7 +115,7 @@ const StockRow = () => {
                     <View style={tw`p-2 mt-3`}>
                         <View>
                             <Text
-                                style={tw`text-black font-semibold text-2xl pl-2 pb-2`}
+                                style={tw`text-black font-bold text-2xl pl-2 pb-2`}
                             >
                                 Stocks
                             </Text>
@@ -231,7 +232,7 @@ const StockRow = () => {
                     <View style={tw`p-2 mt-3`}>
                         <View>
                             <Text
-                                style={tw`text-black font-semibold text-2xl pb-2 pl-2 `}
+                                style={tw`text-black font-bold text-2xl pb-2 pl-2 `}
                             >
                                 My Lists
                             </Text>
@@ -339,7 +340,11 @@ const StockRow = () => {
                                                     </View>
                                                 </View>
                                             </View>
-                                        ) : null}
+                                        ) : (
+                                            <ShipperArticles
+                                                count={myStocks.length}
+                                            />
+                                        )}
                                     </View>
                                 </TouchableOpacity>
                             )}
